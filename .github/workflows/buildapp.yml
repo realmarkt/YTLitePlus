@@ -110,10 +110,17 @@ jobs:
       - name: Install Theos Jailed
         run: |
           ./theos-jailed/install
+       
+      - name: Fix YTUHD Dependency (libundirect)
+        run: |
+          curl -L "https://github.com/PoomSmart/libundirect/releases/download/1.1.5/com.ps.libundirect_1.1.5_iphoneos-arm.deb" -o libundirect.deb
+          dpkg-deb -x libundirect.deb tmp_lib
+          cp tmp_lib/usr/lib/libundirect.dylib $THEOS/lib/
+          echo "Successfully installed libundirect to Theos!"
         env:
           THEOS: ${{ github.workspace }}/theos
-        
-      - name: Fix Compiling
+          
+          - name: Fix Compiling
         run: |
           # Update GNU Make to allow for faster building
           echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
