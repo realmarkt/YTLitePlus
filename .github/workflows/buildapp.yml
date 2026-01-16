@@ -120,7 +120,7 @@ jobs:
         env:
           THEOS: ${{ github.workspace }}/theos
           
-          - name: Fix Compiling
+      - name: Fix Compiling
         run: |
           # Update GNU Make to allow for faster building
           echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
